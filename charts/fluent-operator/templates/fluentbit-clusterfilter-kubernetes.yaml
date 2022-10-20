@@ -1,4 +1,4 @@
-{{- if .Values.Kubernetes -}}
+{{- if .Values.kubernetes.enabled -}}
 apiVersion: fluentbit.fluent.io/v1alpha2
 kind: ClusterFilter
 metadata:
@@ -13,8 +13,8 @@ spec:
       kubeURL: https://kubernetes.default.svc:443
       kubeCAFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       kubeTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-      labels: false
-      annotations: false
+      labels: {{ .Values.kubernetes.filter.labels | default false }}
+      annotations: {{ .Values.kubernetes.filter.annotations | default false }}
   - nest:
       operation: lift
       nestedUnder: kubernetes

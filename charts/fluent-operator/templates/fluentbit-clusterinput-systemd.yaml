@@ -1,4 +1,4 @@
-{{- if .Values.Kubernetes -}}
+{{- if .Values.kubernetes.enabled -}}
 apiVersion: fluentbit.fluent.io/v1alpha2
 kind: ClusterInput
 metadata:

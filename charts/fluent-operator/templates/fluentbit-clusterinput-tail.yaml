@@ -1,4 +1,4 @@
-{{- if .Values.Kubernetes -}}
+{{- if .Values.kubernetes.enabled -}}
 apiVersion: fluentbit.fluent.io/v1alpha2
 kind: ClusterInput
 metadata:
@@ -10,15 +10,12 @@ spec:
   tail:
     tag: kube.*
     path: /var/log/containers/*.log
-    {{- if eq .Values.containerRuntime "docker" }}
-    parser: docker
-    {{- else if eq .Values.containerRuntime "containerd" }}
-    parser: cri
-    {{- else if eq .Values.containerRuntime "crio" }}
-    parser: cri
-    {{- end }}
+    parser: {{ template "fluentbit-operator.criParser" . }}
     refreshIntervalSeconds: 10
     memBufLimit: {{ .Values.fluentbit.input.tail.memBufLimit }}
+    {{- if .Values.fluentbit.input.tail.multilineParserEnabled }}
+    multilineParser: {{ template "fluentbit-operator.criParser" . }}
+    {{- end }}
     skipLongLines: true
     db: /fluent-bit/tail/pos.db
     dbSync: Normal

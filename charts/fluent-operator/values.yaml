@@ -1,11 +1,16 @@
+---
 # Default values for fluentbit-operator.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-#Set this to containerd or crio if you want to collect CRI format logs
+# Set this to containerd or crio if you want to collect CRI format logs
 containerRuntime: docker
-Kubernetes: false
 
+kubernetes:
+  enabled: false
+  filter: {}
+  # labels: false
+  # annotations: false
 operator:
   initcontainer:
     repository: "docker"
@@ -82,6 +87,7 @@ fluentbit:
   input:
     tail:
       memBufLimit: 5MB
+    #  multilineParserEnabled: false
     # uncomment below nodeExporterMetrics section if you want to collect node exporter metrics 
 #   nodeExporterMetrics:
 #     tag: node_metrics

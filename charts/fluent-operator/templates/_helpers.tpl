@@ -61,3 +61,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Get the name of the parser
+*/}}
+{{- define "fluentbit-operator.criParser" -}}
+{{- if eq .Values.containerRuntime "docker" -}}
+docker
+{{- else if eq .Values.containerRuntime "containerd" -}}
+cri
+{{- else if eq .Values.containerRuntime "crio" -}}
+cri
+{{- end -}}
+{{- end }}

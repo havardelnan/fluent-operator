@@ -1,4 +1,4 @@
-{{- if .Values.Kubernetes -}}
+{{- if .Values.kubernetes.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:

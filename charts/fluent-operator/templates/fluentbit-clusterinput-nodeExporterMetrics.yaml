@@ -1,4 +1,4 @@
-{{- if .Values.Kubernetes -}}
+{{- if .Values.kubernetes.enabled -}}
 {{- if .Values.fluentbit.input.nodeExporterMetrics -}}
 apiVersion: fluentbit.fluent.io/v1alpha2
 kind: ClusterInput
